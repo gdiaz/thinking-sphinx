@@ -71,6 +71,7 @@ module ThinkingSphinx
     attr_accessor :version
     
     attr_reader :environment, :configuration, :controller
+    attr_accessor :timeout
     
     # Load in the configuration settings - this will look for config/sphinx.yml
     # and parse it according to the current environment.
@@ -236,6 +237,7 @@ module ThinkingSphinx
     def client
       client = Riddle::Client.new address, port
       client.max_matches = configuration.searchd.max_matches || 1000
+      client.timeout = timeout || 0
       client
     end
     
